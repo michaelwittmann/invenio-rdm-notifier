@@ -33,7 +33,7 @@ This project contains a Slack Bot to notify users about new Records added to a I
 ## Docker
 1. Build docker image
    ```shell
-   docker build -t inveniordm-notifier:latest .
+   docker build -t invenio-rdm-notifier:latest .
    ```
 2. Setup environment variables
    ```shell
@@ -43,5 +43,5 @@ This project contains a Slack Bot to notify users about new Records added to a I
    
 2. Run docker container
    ```shell
-   docker run --env-file .env inveniordm-notifier:latest 
+   docker run --env-file .env invenio-rdm-notifier:latest 
    ```
