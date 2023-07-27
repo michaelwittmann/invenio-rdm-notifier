@@ -1,6 +1,7 @@
 # InvenioRDM Notifier
 
-This project contains a Bot to notify users about new Records added to a InvenioRDM Instance
+This project contains a Bot to notify users about new Records added to a [InvenioRDM](https://inveniosoftware.org/) Instance.
+
 Currently, only Slack is supported as a notification channel, others may follow. Feel free to contribute!
 
 # Getting started
