@@ -19,11 +19,11 @@ class DataHubCrawler:
 
     @property
     def __url(self):
-        return f"{Settings().datahub_url}/api"
+        return f"{Settings().invenio_rdm_url}/api"
 
     @property
     def __token(self):
-        return Settings().datahub_access_token
+        return Settings().invenio_rdm_access_token
 
     @property
     def __auth_header(self):
@@ -59,7 +59,7 @@ class DataHubCrawler:
         # 2. Compare with already known records
         new_ids = fetched_ids - self.known_record_ids
         self.known_record_ids.update(fetched_ids)
-        #self.save_known_record_ids()
+        self.save_known_record_ids()
 
         # 3. Create Notification for new records
         for record_id in new_ids:
