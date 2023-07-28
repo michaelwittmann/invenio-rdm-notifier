@@ -1,6 +1,8 @@
 # InvenioRDM Notifier
 
-This project contains a Slack Bot to notify users about new Records added to a InvenioRDM Instance
+This project contains a bot to notify users about new records added to a [InvenioRDM](https://inveniosoftware.org/) instance.
+
+Currently, only Slack is supported as a notification channel, others may follow. Feel free to contribute!
 
 # Getting started
 
@@ -45,7 +47,7 @@ This project contains a Slack Bot to notify users about new Records added to a I
    ```shell
    docker volume create invenio-rdm-notifier-storage
    ```
-2. Run docker container
+4. Run docker container
    ```shell
    docker run --mount source=invenio-rdm-notifier-storage,target=/mnt/backup --env-file .env invenio-rdm-notifier:latest 
    ```
