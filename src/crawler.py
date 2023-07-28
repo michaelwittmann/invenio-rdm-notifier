@@ -35,7 +35,7 @@ class DataHubCrawler:
 
     @property
     def interval(self) -> int:
-        return int(os.environ.get('INTERVAL_MIN', '1'))
+        return int(os.environ.get('INTERVAL_SEC', '10'))
 
     def __init__(self, notification_clients=None):
         self.restore_known_records()
