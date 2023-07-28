@@ -1,33 +1,21 @@
 import logging
 import os
 import time
-from typing import List, Set
+from typing import List
 import pickle
 from pathlib import Path
 import requests
 import schedule
 from pydantic import TypeAdapter
 
+from src.invenio_rdm_datamodel import Record, RecordAPI
 from src.notification.notificationClient import NotificationClient
-from src.record import Record
 from src.settings import Settings
 
 
 class DataHubCrawler:
     known_record_ids: set
     notificationClients: List[NotificationClient] = []
-
-    @property
-    def __url(self):
-        return f"{Settings().invenio_rdm_url}/api"
-
-    @property
-    def __token(self):
-        return Settings().invenio_rdm_access_token
-
-    @property
-    def __auth_header(self):
-        return {"Authorization": f"Bearer {self.__token}"}
 
     @property
     def __backup_path(self):
@@ -53,7 +41,7 @@ class DataHubCrawler:
 
     def check_for_new_records(self) -> None:
         # 1. Fetch new records
-        records = self.fetch_newest_records()
+        records = RecordAPI().get_newest_records(50)
         fetched_ids = {record.id for record in records if record.status == "published"}
 
         # 2. Compare with already known records
@@ -75,16 +63,6 @@ class DataHubCrawler:
             for notification_client in self.notificationClients:
                 logging.info(f"Sending updated record notification for record {record.id} at {notification_client.__class__.__name__}")
                 notification_client.notify_updated_record(record)
-
-    def fetch_newest_records(self, n=10) -> List[Record]:
-        params = {"sort": "newest",
-                  "size": n}
-        res = requests.get(f"{self.__url}/records",
-                           headers=self.__auth_header,
-                           params=params,
-                           verify=False).json()
-        records = TypeAdapter(List[Record]).validate_python(res['hits']['hits'])
-        return records
 
     def restore_known_records(self):
         self.known_record_ids = set()
