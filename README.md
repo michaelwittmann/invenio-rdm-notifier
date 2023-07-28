@@ -33,15 +33,19 @@ This project contains a Slack Bot to notify users about new Records added to a I
 ## Docker
 1. Build docker image
    ```shell
-   docker build -t inveniordm-notifier:latest .
+   docker build -t invenio-rdm-notifier:latest .
    ```
 2. Setup environment variables
    ```shell
    cp env-dev .env
    nano .env
    ```
-   
+
+3. Create a docker volume to persist known records
+   ```shell
+   docker volume create invenio-rdm-notifier-storage
+   ```
 2. Run docker container
    ```shell
-   docker run --env-file .env inveniordm-notifier:latest 
+   docker run --mount source=invenio-rdm-notifier-storage,target=/mnt/backup --env-file .env invenio-rdm-notifier:latest 
    ```
