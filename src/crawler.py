@@ -104,6 +104,6 @@ class DataHubCrawler:
         try:
             with open(self.__backup_path.joinpath("known_ids.bak"), "wb") as f:
                 pickle.dump(self.known_record_ids, f)
-                logging.info("Persisted know records")
+                logging.info("Persisted known records")
         except Exception as e:
-            logging.error("Could persist known records", e)
+            logging.error("Could not persist known records", e)
