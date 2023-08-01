@@ -73,7 +73,7 @@ class DataHubCrawler:
             try:
                 with open(self.__backup_file, "rb") as f:
                     self.known_record_ids = pickle.load(f)
-                    logging.info("Restored know records")
+                    logging.info("Restored known records")
             except Exception as e:
                 logging.error("Could not restore known records from backup", exc_info=e)
         else:
